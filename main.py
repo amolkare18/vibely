@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from utils import router as recommend
 
 
 from db import db
@@ -29,6 +30,11 @@ async def create_user(user: User):
     # Insert into DB using models.py helper
     user_id = await create_user_db(user.dict())
     return user_id
+
+app.include_router(recommend, prefix="/api", tags=["recommendations"])
+
+
+
 
 # pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
